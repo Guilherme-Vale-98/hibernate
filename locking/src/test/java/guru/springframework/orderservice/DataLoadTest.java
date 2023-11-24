@@ -42,6 +42,18 @@ public class DataLoadTest {
     ProductRepository productRepository;
 
     @Test
+    void TestDBLock(){
+        Long id = 1l;
+        OrderHeader orderHeader = orderHeaderRepository.findById(id).get();
+        Address billTo = new Address();
+        billTo.setAddress("Bill me");
+        orderHeader.setBillToAddress(billTo);
+        orderHeaderRepository.saveAndFlush(orderHeader);
+        System.out.println("I updated the order");
+    }
+
+
+    @Test
     void testN_PlusOneProblem() {
 
         Customer customer = customerRepository.findCustomerByCustomerNameIgnoreCase(TEST_CUSTOMER).get();
